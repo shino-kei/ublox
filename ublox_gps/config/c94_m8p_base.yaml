@@ -5,7 +5,7 @@ debug: 1                    # Range 0-4 (0 means no debug statements will print)
 save:
   mask: 3103                # Save I/O, Message, INF Message, Nav, Receiver 
                             # Manager, Antenna, and Logging Configuration
-  device: 4                 # Save to EEPROM
+  device: 15                 # Save to EEPROM
 
 device: /dev/ttyACM0
 frame_id: gps_base
@@ -16,7 +16,7 @@ dr_limit: 0
 enable_ppp: false           # Not supported by C94-M8P
 
 rate: 4                     # Measurement rate in Hz
-nav_rate: 4                 # in number of measurement cycles
+nav_rate: 1                 # in number of measurement cycles
 
 uart1:
   baudrate: 19200           # C94-M8P specific
@@ -26,7 +26,7 @@ uart1:
 # TMODE3 Config
 tmode3: 1                   # Survey-In Mode
 sv_in:
-  reset: false              # True: disables and re-enables survey-in (resets)
+  reset: true              # True: disables and re-enables survey-in (resets)
                             # False: Disables survey-in only if TMODE3 is  
                             # disabled
   min_dur: 300              # Survey-In Minimum Duration [s]
@@ -34,19 +34,19 @@ sv_in:
 
 # RTCM out config
 rtcm:
-  ids: [5, 87, 77, 230]     # RTCM Messages to configure for Base station
-                                   # Enabled: GPS MSM7, GLONASS MSM7, 
-                                   # GLONASS CP bias, Stationary RTK ref
+  ids: [5, 127, 77, 230]     # RTCM Messages to configure for Base station
+                                   # Enabled: GPS MSM7, BeiDou MSM7, 
+                                   # Stationary RTK ref
                                    # 0xF5 0x05 Stationary RTK reference station
                                    # ARP
-                                   # 0xF5 0x4A GPS MSM4
-                                   # 0xF5 0x4D GPS MSM7
-                                   # 0xF5 0x54 GLONASS MSM4
-                                   # 0xF5 0x57 GLONASS MSM7
-                                   # 0xF5 0x7C BeiDou MSM4
-                                   # 0xF5 0x7F BeiDou MSM7
-                                   # 0xF5 0xE6 GLONASS code-phase biases
-                                   # 0xF5 0xFE Reference station PVT 
+                                   # 0xF5 0x4A(74) GPS MSM4
+                                   # 0xF5 0x4D(77) GPS MSM7
+                                   # 0xF5 0x54(84) GLONASS MSM4
+                                   # 0xF5 0x57(87) GLONASS MSM7
+                                   # 0xF5 0x7C(124) BeiDou MSM4
+                                   # 0xF5 0x7F(127) BeiDou MSM7
+                                   # 0xF5 0xE6(230) GLONASS code-phase biases
+                                   # 0xF5 0xFE(254) Reference station PVT 
                                    #(u-blox proprietary RTCM Message)
   rates: [1, 1, 1, 10]      # in number of navigation solutions, must match 
                             # nav_rate, except for 0xE6
@@ -57,7 +57,7 @@ dat:
 # GNSS Config
 gnss:
   glonass: true             # Supported by C94-M8P
-  beidou: false             # Supported by C94-M8P
+  beidou: true             # Supported by C94-M8P
   qzss: false               # Supported by C94-M8P
 
 inf: 
@@ -67,6 +67,6 @@ inf:
 publish:
   all: true
   aid:
-    hui: false
+    hui: true
   nav:
-    posecef: false
+    posecef: true
